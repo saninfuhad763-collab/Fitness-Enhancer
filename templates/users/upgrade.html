@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}Upgrade{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-4">Upgrade to Premium</h2>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="fw-bold">Free Plan</h4>
+        <ul>
+          <li>Basic workouts</li>
+          <li>BMI calculation</li>
+          <li>Dashboard access</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm border-dark">
+      <div class="card-body">
+        <h4 class="fw-bold">Premium Plan</h4>
+        <ul>
+          <li>Weekly workout schedule</li>
+          <li>Calorie & protein calculator</li>
+          <li>Progress tracking & charts</li>
+          <li>Advanced workouts</li>
+        </ul>
+
+        <button class="btn btn-dark w-100 mt-3">
+          Upgrade (Coming Soon)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% block title %}Progress{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-3">Progress Tracker</h2>
+<p class="text-muted">Track your weight changes over time</p>
+
+<!-- Add Progress Form -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="fw-bold">Add Today’s Weight</h5>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-dark">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Chart -->
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="fw-bold">Weight Progress Chart</h5>
+    <canvas id="weightChart"></canvas>
+  </div>
+</div>
+
+<!-- History -->
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="fw-bold">History</h5>
+
+    <ul class="list-group list-group-flush">
+      {% for p in progress_data %}
+        <li class="list-group-item">
+          {{ p.date }} – <strong>{{ p.weight }} kg</strong>
+          {% if p.note %}
+            <span class="text-muted">({{ p.note }})</span>
+          {% endif %}
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">
+          No progress recorded yet.
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('weightChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ dates|safe }},
+        datasets: [{
+            label: 'Weight (kg)',
+            data: {{ weights|safe }},
+            borderWidth: 2,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: false
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

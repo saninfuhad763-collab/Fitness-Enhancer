@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% block title %}Weekly Workout Schedule{% endblock %}
+
+{% block content %}
+<h2 class="fw-bold mb-3">Weekly Workout Schedule</h2>
+<p class="text-muted mb-4">
+  Follow this plan for consistent results
+</p>
+
+<div class="row g-4">
+  {% for item in schedule %}
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="fw-bold">{{ item.get_day_display }}</h5>
+          <p class="text-muted">{{ item.workout_plan.title }}</p>
+          <a href="/workout/" class="btn btn-sm btn-outline-dark">
+            View Workout
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  <!-- Rest Days -->
+  <div class="col-md-3">
+    <div class="card border-dashed h-100">
+      <div class="card-body text-center text-muted">
+        <h5>Thursday</h5>
+        <p>Rest & Recovery</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card border-dashed h-100">
+      <div class="card-body text-center text-muted">
+        <h5>Sunday</h5>
+        <p>Rest & Mobility</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

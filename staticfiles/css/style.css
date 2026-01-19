@@ -1,0 +1,70 @@
+body {
+    background-color: #f9fafb;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #111827;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+}
+
+h2, h3, h5 {
+    letter-spacing: 0.3px;
+}
+
+/* Cards */
+.card {
+    border-radius: 16px;
+    border: none;
+}
+
+/* Dashboard stat cards */
+.stat-card {
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 14px;
+}
+
+/* Action cards */
+.action-card {
+    border-radius: 14px;
+    transition: transform 0.2s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Buttons */
+.btn-dark {
+    background-color: #111827;
+    border: none;
+}
+
+.btn-dark:hover {
+    background-color: #000;
+}
+
+.btn-outline-dark {
+    border-radius: 10px;
+}
+
+/* Inputs */
+input, select, textarea {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Dashed border utility */
+.border-dashed {
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+}
+
+/* Mobile spacing */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+}

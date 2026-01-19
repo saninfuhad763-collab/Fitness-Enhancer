@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Greeting -->
+<div class="mb-4">
+  <h2 class="fw-bold">Welcome back, {{ request.user.username }} 👋</h2>
+  <p class="text-muted">
+    Stay consistent. Results will follow.
+  </p>
+</div>
+
+<p class="text-muted">
+  Plan:
+  <strong class="text-capitalize">
+    {{ request.user.subscription.plan }}
+  </strong>
+  {% if request.user.subscription.plan == 'free' %}
+    – <a href="/users/upgrade/">Upgrade</a>
+  {% endif %}
+</p>
+
+<!-- Stats Row -->
+<div class="row g-4 mb-4">
+  <div class="col-md-4">
+    <div class="card stat-card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Weight</h6>
+        <h3 class="fw-bold">{{ profile.weight }} kg</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card stat-card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">BMI</h6>
+        <h3 class="fw-bold">{{ bmi }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card stat-card shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">Goal</h6>
+        <h3 class="fw-bold text-capitalize">
+          {{ profile.goal|cut:"_" }}
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Action Cards -->
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm">
+      <div class="card-body">
+        <h5 class="fw-bold">🏋️ Workout Plan</h5>
+        <p class="text-muted">View today’s workout</p>
+        <a href="/workout/" class="btn btn-outline-dark btn-sm">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm">
+      <div class="card-body">
+        <h5 class="fw-bold">🍽️ Diet Plan</h5>
+        <p class="text-muted">Calories & protein intake</p>
+        <a href="/tools/calories/" class="btn btn-outline-dark btn-sm">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm">
+      <div class="card-body">
+        <h5 class="fw-bold">📈 Progress</h5>
+        <p class="text-muted">Track your growth</p>
+        <a href="/progress/" class="btn btn-outline-dark btn-sm">Open</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-success mt-3">
+  💪 Consistency beats intensity. Keep going!
+</div>
+
+{% if request.user.subscription.plan == "premium" %}
+  <a href="{% url 'weekly_schedule' %}" class="btn btn-outline-dark btn-sm">
+    Weekly Workout
+  </a>
+{% else %}
+  <button class="btn btn-outline-secondary btn-sm" disabled>
+    Weekly Workout 🔒
+  </button>
+{% endif %}
+
+{% endblock %}
