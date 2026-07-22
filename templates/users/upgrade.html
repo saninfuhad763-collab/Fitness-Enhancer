@@ -1,80 +1,412 @@
 {% extends 'base/base.html' %}
-{% block title %}Upgrade to Premium{% endblock %}
+{% load static %}
+{% block title %}Upgrade to Premium | Pricing{% endblock %}
 
 {% block content %}
+<!-- Bootstrap Icons & Modal Script Integration -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Hero Section -->
-<div class="mb-5 ds-glow-container text-center py-4">
-  <div class="ds-glow-primary" style="opacity: 0.8;"></div>
-  <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.1);">
-    <i data-lucide="zap" style="color: var(--ds-accent-secondary); width: 32px; height: 32px;"></i>
+<style>
+  /* SaaS Pricing Page Theme Enhancements */
+  .accordion-item {
+    background-color: var(--ds-card-bg) !important;
+    border: 1px solid var(--ds-border) !important;
+    color: var(--ds-text-primary) !important;
+    border-radius: var(--ds-radius-lg) !important;
+    overflow: hidden;
+    margin-bottom: var(--ds-space-sm);
+  }
+  .accordion-button {
+    background-color: var(--ds-card-bg) !important;
+    color: var(--ds-text-primary) !important;
+    font-weight: var(--ds-font-weight-semibold);
+    box-shadow: none !important;
+    padding: var(--ds-space-md) var(--ds-space-lg);
+  }
+  .accordion-button:not(.collapsed) {
+    background-color: var(--ds-hover-bg) !important;
+    color: var(--ds-accent-primary) !important;
+  }
+  .accordion-button::after {
+    filter: invert(1);
+  }
+  .accordion-body {
+    color: var(--ds-text-secondary);
+    background-color: var(--ds-bg-secondary);
+    line-height: var(--ds-line-height-relaxed);
+  }
+  .modal-content {
+    background-color: var(--ds-card-bg) !important;
+    border: 1px solid var(--ds-border) !important;
+    color: var(--ds-text-primary) !important;
+    border-radius: var(--ds-radius-xl) !important;
+  }
+  .modal-header, .modal-footer {
+    border-color: var(--ds-border) !important;
+  }
+  .ds-table th, .ds-table td {
+    border-color: var(--ds-border) !important;
+    background-color: transparent !important;
+    color: var(--ds-text-primary) !important;
+    vertical-align: middle;
+  }
+</style>
+
+<!-- 1. Hero Section -->
+<div class="mb-5 ds-glow-container text-center py-5">
+  <div class="ds-glow-primary" style="opacity: 0.9;"></div>
+  <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3);">
+    <i class="bi bi-rocket-takeoff text-primary fs-3"></i>
   </div>
-  <h2 class="ds-display ds-text-gradient mb-2">Unlock Your Potential</h2>
-  <p class="ds-text-muted ds-body-large mb-0 px-md-5 mx-md-5">Upgrade to Premium for advanced tools, progressive schedules, and deep analytics.</p>
+  <h1 class="ds-display ds-text-gradient mb-3">Unlock Your Full Fitness Potential</h1>
+  <p class="ds-text-muted ds-body-large mb-4 px-md-5 mx-md-auto" style="max-width: 750px;">
+    Accelerate your goals with automated weekly training schedules, precision macro calculations, and deep analytics built for consistent progress.
+  </p>
+  <a href="#pricing-plans" class="ds-btn ds-btn-primary ds-btn-lg px-5 py-3 shadow-lg">
+    View Plans <i class="bi bi-arrow-down-short ms-1 fs-5"></i>
+  </a>
 </div>
 
-<div class="row g-4 justify-content-center">
-  
-  <!-- Free Plan -->
-  <div class="col-md-5">
-    <div class="ds-card ds-glass h-100">
-      <div class="ds-card-body p-4 d-flex flex-column h-100">
-        <h4 class="ds-h3 mb-2">Basic</h4>
-        <p class="ds-text-muted mb-4">Essential tools to get started</p>
-        
-        <div class="ds-h1 mb-4">$0 <span class="ds-text-muted ds-h5 font-weight-normal">/mo</span></div>
-        
-        <ul class="ds-list-group mb-4 flex-grow-1" style="border: none;">
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> Basic workouts
-          </li>
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> BMI calculation
-          </li>
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> Dashboard access
-          </li>
-        </ul>
-        
-        <button class="ds-btn ds-btn-outline ds-btn-w100 py-2" disabled>Current Plan</button>
+<!-- 2. Pricing Section -->
+<div id="pricing-plans" class="py-4 mb-5">
+  <div class="text-center mb-5">
+    <span class="ds-badge ds-badge-primary text-uppercase tracking-wider px-3 py-1 mb-2">Flexible Options</span>
+    <h2 class="ds-h1 ds-text-gradient">Simple, Transparent Pricing</h2>
+    <p class="ds-text-muted ds-body">Choose the plan that best fits your fitness roadmap.</p>
+  </div>
+
+  <div class="row g-4 align-items-stretch">
+    
+    <!-- Free Plan -->
+    <div class="col-lg-4 col-md-6">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 d-flex flex-column justify-content-between p-4">
+        <div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="ds-h3 mb-0">Free Plan</h3>
+            <span class="ds-badge ds-badge-secondary">Basic</span>
+          </div>
+          <p class="ds-text-muted ds-small mb-4">Essential fitness tracking tools for getting started.</p>
+          
+          <div class="mb-4">
+            <span class="ds-display font-weight-bold">₹0</span>
+            <span class="ds-text-muted ds-body"> / Forever</span>
+          </div>
+
+          <hr class="mb-4">
+
+          <ul class="list-unstyled mb-4">
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-success me-3 fs-5"></i>
+              <span>Basic Dashboard</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-success me-3 fs-5"></i>
+              <span>Workout Plans</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-success me-3 fs-5"></i>
+              <span>Progress Tracking</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-success me-3 fs-5"></i>
+              <span>BMI Calculator</span>
+            </li>
+          </ul>
+        </div>
+
+        <button type="button" class="ds-btn ds-btn-outline ds-btn-w100 py-2" data-bs-toggle="modal" data-bs-target="#demoModal">
+          Included Plan
+        </button>
+      </div>
+    </div>
+
+    <!-- Premium Plan (Highlighted) -->
+    <div class="col-lg-4 col-md-6">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 d-flex flex-column justify-content-between p-4 position-relative overflow-hidden" 
+           style="border: 2px solid var(--ds-accent-primary) !important; box-shadow: 0 0 25px rgba(59, 130, 246, 0.2);">
+        <!-- Most Popular Badge -->
+        <div class="position-absolute top-0 end-0 mt-3 me-3">
+          <span class="ds-badge ds-badge-primary px-3 py-1 text-uppercase tracking-wider fw-bold">Most Popular</span>
+        </div>
+
+        <div>
+          <div class="mb-3">
+            <h3 class="ds-h3 ds-text-primary mb-1">Premium Plan</h3>
+          </div>
+          <p class="ds-text-muted ds-small mb-4">Complete nutrition, automated schedules, and deep insights.</p>
+          
+          <div class="mb-4">
+            <span class="ds-display ds-text-gradient-primary font-weight-bold">₹199</span>
+            <span class="ds-text-muted ds-body"> / month</span>
+          </div>
+
+          <hr class="mb-4">
+
+          <ul class="list-unstyled mb-4">
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <strong>Everything in Free</strong>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <span>Personalized Nutrition</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <span>Advanced Analytics</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <span>Weekly Reports</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <span>Premium Workouts</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+              <span>Priority Support</span>
+            </li>
+          </ul>
+        </div>
+
+        <button type="button" class="ds-btn ds-btn-primary ds-btn-w100 py-3 shadow-lg" data-bs-toggle="modal" data-bs-target="#demoModal">
+          Upgrade to Premium <i class="bi bi-arrow-right ms-1"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Pro Plan -->
+    <div class="col-lg-4 col-md-12">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 d-flex flex-column justify-content-between p-4">
+        <div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="ds-h3 mb-0">Pro Plan</h3>
+            <span class="ds-badge ds-badge-warning">Lifetime Access</span>
+          </div>
+          <p class="ds-text-muted ds-small mb-4">Ultimate access for dedicated fitness enthusiasts.</p>
+          
+          <div class="mb-4">
+            <span class="ds-display font-weight-bold">₹499</span>
+            <span class="ds-text-muted ds-body"> / Lifetime</span>
+          </div>
+
+          <hr class="mb-4">
+
+          <ul class="list-unstyled mb-4">
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-warning me-3 fs-5"></i>
+              <strong>Everything in Premium</strong>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-warning me-3 fs-5"></i>
+              <span>Future AI Coach</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-warning me-3 fs-5"></i>
+              <span>Export Reports</span>
+            </li>
+            <li class="d-flex align-items-center mb-3">
+              <i class="bi bi-check-circle-fill text-warning me-3 fs-5"></i>
+              <span>Lifetime Updates</span>
+            </li>
+          </ul>
+        </div>
+
+        <button type="button" class="ds-btn ds-btn-outline ds-btn-w100 py-2" data-bs-toggle="modal" data-bs-target="#demoModal">
+          Get Pro Lifetime
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 5. Why Upgrade Section -->
+<div class="py-5 mb-5 border-top border-bottom" style="border-color: var(--ds-border) !important;">
+  <div class="text-center mb-5">
+    <span class="ds-badge ds-badge-primary text-uppercase tracking-wider px-3 py-1 mb-2">Capabilities</span>
+    <h2 class="ds-h1 ds-text-gradient">Why Upgrade to Premium?</h2>
+    <p class="ds-text-muted ds-body">Maximize your performance with intelligent guidance.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(59, 130, 246, 0.1);">
+          <i class="bi bi-journal-check text-primary fs-3"></i>
+        </div>
+        <h4 class="ds-h4 mb-2">Personalized Plans</h4>
+        <p class="ds-text-muted ds-body mb-0">Automated weekly training routines tailored to your baseline experience level and specific fitness goals.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(34, 197, 94, 0.1);">
+          <i class="bi bi-pie-chart text-success fs-3"></i>
+        </div>
+        <h4 class="ds-h4 mb-2">Nutrition Guidance</h4>
+        <p class="ds-text-muted ds-body mb-0">Calculated calorie targets, protein goals, water intake recommendations, and goal-specific daily meal ideas.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(245, 158, 11, 0.1);">
+          <i class="bi bi-graph-up-arrow text-warning fs-3"></i>
+        </div>
+        <h4 class="ds-h4 mb-2">Advanced Analytics</h4>
+        <p class="ds-text-muted ds-body mb-0">Track weight progression, review historical logs, and visualize progress trends through interactive charts.</p>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Premium Plan -->
-  <div class="col-md-5">
-    <div class="ds-card ds-glass h-100 position-relative overflow-hidden" style="border: 1px solid var(--ds-accent-primary);">
-      <!-- Subtle top border accent -->
-      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ds-accent-primary);"></div>
-      
-      <div class="ds-card-body p-4 d-flex flex-column h-100">
-        
-        <div class="d-flex justify-content-between align-items-start mb-2">
-          <h4 class="ds-h3 mb-0 ds-text-primary">Premium</h4>
-          <span class="ds-badge ds-badge-primary">Recommended</span>
-        </div>
-        <p class="ds-text-muted mb-4">Complete access to the data ecosystem</p>
-        
-        <div class="ds-h1 mb-4">$9.99 <span class="ds-text-muted ds-h5 font-weight-normal">/mo</span></div>
-        
-        <ul class="ds-list-group mb-4 flex-grow-1" style="border: none;">
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Weekly automated schedule
-          </li>
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Precision Calorie & Macro calculator
-          </li>
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Advanced Progress tracking charts
-          </li>
-          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
-            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Advanced, targeted workouts
-          </li>
-        </ul>
-        
-        <button class="ds-btn ds-btn-primary ds-btn-w100 py-2">
-          Upgrade <span class="ds-caption ms-1 opacity-75">(Coming Soon)</span>
+<!-- 4. Feature Comparison Table -->
+<div class="py-4 mb-5">
+  <div class="text-center mb-4">
+    <h3 class="ds-h2 ds-text-gradient">Feature Comparison</h3>
+    <p class="ds-text-muted ds-body">Side-by-side feature matrix across all plans.</p>
+  </div>
+
+  <div class="ds-card ds-glass p-3 overflow-hidden">
+    <div class="table-responsive">
+      <table class="table ds-table mb-0 text-center">
+        <thead>
+          <tr>
+            <th class="text-start py-3" style="width: 40%;">Feature</th>
+            <th class="py-3" style="width: 20%;">Free</th>
+            <th class="py-3 text-primary" style="width: 20%;">Premium</th>
+            <th class="py-3 text-warning" style="width: 20%;">Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-start py-3 fw-semibold">Workout Plans</td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+          <tr>
+            <td class="text-start py-3 fw-semibold">Progress Tracking</td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+          <tr>
+            <td class="text-start py-3 fw-semibold">Nutrition Dashboard</td>
+            <td class="py-3"><i class="bi bi-x-circle text-muted fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+          <tr>
+            <td class="text-start py-3 fw-semibold">Weekly Reports</td>
+            <td class="py-3"><i class="bi bi-x-circle text-muted fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+          <tr>
+            <td class="text-start py-3 fw-semibold">AI Coach</td>
+            <td class="py-3"><i class="bi bi-x-circle text-muted fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-x-circle text-muted fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+          <tr>
+            <td class="text-start py-3 fw-semibold">Priority Support</td>
+            <td class="py-3"><i class="bi bi-x-circle text-muted fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+            <td class="py-3"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6. FAQ Section -->
+<div class="py-4 mb-5" style="max-width: 850px; margin: 0 auto;">
+  <div class="text-center mb-4">
+    <span class="ds-badge ds-badge-primary text-uppercase tracking-wider px-3 py-1 mb-2">Questions?</span>
+    <h3 class="ds-h2 ds-text-gradient">Frequently Asked Questions</h3>
+    <p class="ds-text-muted ds-body">Common inquiries regarding the application showcase.</p>
+  </div>
+
+  <div class="accordion" id="faqAccordion">
+    
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeadingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="true" aria-controls="faqCollapseOne">
+          Is payment currently available?
         </button>
+      </h2>
+      <div id="faqCollapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          No. This web application is a portfolio project designed to demonstrate Django full-stack architecture, clean code practices, and modern SaaS UI engineering. No live payment gateway or financial transactions are active.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeadingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+          Can I try Premium?
+        </button>
+      </h2>
+      <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes! You can explore all premium views—including the Nutrition Dashboard, Progress Tracking, and Weekly Schedule—directly through the application demonstration.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="faqHeadingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+          Will payment be added in the future?
+        </button>
+      </h2>
+      <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Payment processing (e.g. Stripe or Razorpay SDK integration) can be added as a future extension, but the primary focus of this project remains demonstrating software design patterns, robust error handling, and UI excellence.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 7. Final CTA -->
+<div class="ds-card ds-glass p-5 text-center mb-5 position-relative overflow-hidden" style="border: 1px solid var(--ds-accent-primary) !important;">
+  <div class="ds-glow-primary" style="opacity: 0.6;"></div>
+  <h2 class="ds-h1 ds-text-gradient mb-3">Start Your Fitness Journey Today</h2>
+  <p class="ds-text-muted ds-body-large mb-4 mx-auto" style="max-width: 600px;">
+    Experience how data-driven workouts and personalized nutrition planning can elevate your daily consistency.
+  </p>
+  <div>
+    <button type="button" class="ds-btn ds-btn-primary ds-btn-lg px-5 py-3 shadow-lg" data-bs-toggle="modal" data-bs-target="#demoModal">
+      Explore Premium <i class="bi bi-arrow-right ms-2"></i>
+    </button>
+  </div>
+</div>
+
+<!-- 3. Demo Modal -->
+<div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-2">
+      <div class="modal-header">
+        <h5 class="modal-title ds-h5 d-flex align-items-center" id="demoModalLabel">
+          <i class="bi bi-info-circle text-primary me-2 fs-5"></i> Demo Project
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4">
+        <p class="ds-body mb-2 fw-semibold">Payment integration coming soon.</p>
+        <p class="ds-text-muted ds-small mb-0">This page demonstrates the premium experience only as part of a technical portfolio showcase.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="ds-btn ds-btn-outline" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
