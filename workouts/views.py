@@ -10,7 +10,16 @@ from django.http import HttpResponseForbidden
 
 @login_required
 def generate_workout(request):
-    profile = UserProfile.objects.get(user=request.user)
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'age': 30,
+            'height': 170.0,
+            'weight': 70.0,
+            'goal': 'fitness',
+            'experience': 'beginner'
+        }
+    )
 
     plan = WorkoutPlan.objects.filter(
         goal=profile.goal,
@@ -30,7 +39,16 @@ def weekly_schedule(request):
             "Upgrade to Premium to access this feature"
         )
 
-    profile = UserProfile.objects.get(user=request.user)
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'age': 30,
+            'height': 170.0,
+            'weight': 70.0,
+            'goal': 'fitness',
+            'experience': 'beginner'
+        }
+    )
 
     # Get suitable workout plan
     plan = WorkoutPlan.objects.filter(

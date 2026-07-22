@@ -46,4 +46,4 @@ def progress_charts(request):
             "Upgrade to Premium to view progress charts"
         )
 
-    return render(request, 'progress/progress_charts.html')
+    return redirect('progress')

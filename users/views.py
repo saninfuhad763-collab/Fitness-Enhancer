@@ -1,14 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.contrib import messages
 
-from .forms import CustomUserRegistrationForm
+from .forms import CustomUserRegistrationForm, UserProfileForm
 from .models import UserProfile, Subscription
 
 
 @login_required
 def dashboard(request):
-    profile = UserProfile.objects.get(user=request.user)
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'age': 30,
+            'height': 170.0,
+            'weight': 70.0,
+            'goal': 'fitness'
+        }
+    )
 
     # BMI calculation
     height_m = profile.height / 100
@@ -28,18 +37,20 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
-            # Create user profile
-            UserProfile.objects.create(
+            # Create or update user profile (signal might have created it)
+            UserProfile.objects.update_or_create(
                 user=user,
-                age=form.cleaned_data['age'],
-                height=form.cleaned_data['height'],
-                weight=form.cleaned_data['weight'],
-                goal=form.cleaned_data['goal']
+                defaults={
+                    'age': form.cleaned_data['age'],
+                    'height': form.cleaned_data['height'],
+                    'weight': form.cleaned_data['weight'],
+                    'goal': form.cleaned_data['goal']
+                }
             )
-            #assign free plan
-            Subscription.objects.create(
+            # Assign free plan
+            Subscription.objects.update_or_create(
                  user=user,
-                 plan='free'
+                 defaults={'plan': 'free'}
             )
 
             # Auto login after registration
@@ -54,5 +65,30 @@ def register(request):
 @login_required
 def upgrade(request):
     return render(request, 'users/upgrade.html')
+
+
+@login_required
+def edit_profile(request):
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'age': 30,
+            'height': 170.0,
+            'weight': 70.0,
+            'goal': 'fitness',
+            'experience': 'beginner'
+        }
+    )
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('dashboard')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'users/edit_profile.html', {'form': form, 'profile': profile})
 
         

@@ -2,25 +2,39 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="col-md-5">
-    <div class="card shadow-lg border-0">
-      <div class="card-body p-4">
-        <h3 class="text-center mb-4 fw-bold">Welcome Back</h3>
+    
+    <div class="ds-glow-container text-center mb-4">
+      <div class="ds-glow-primary"></div>
+      <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(59, 130, 246, 0.1);">
+        <i data-lucide="lock" style="color: var(--ds-accent-primary); width: 28px; height: 28px;"></i>
+      </div>
+      <h2 class="ds-h2 ds-text-gradient mb-2">Welcome Back</h2>
+      <p class="ds-text-muted ds-body">Sign in to continue to your dashboard</p>
+    </div>
 
-        <form method="post">
+    <div class="ds-card ds-glass p-md-4">
+      <div class="ds-card-body">
+        <form method="post" class="ds-form-wrapper">
           {% csrf_token %}
           {{ form.as_p }}
 
-          <button class="btn btn-dark w-100 mt-3">Login</button>
+          <button class="ds-btn ds-btn-primary ds-btn-w100 mt-4 py-2">
+            Sign In
+            <i data-lucide="arrow-right" class="ms-2" style="width: 16px; height: 16px;"></i>
+          </button>
         </form>
 
-        <p class="text-center mt-3">
-          Don’t have an account?
-          <a href="/users/register/">Register</a>
-        </p>
+        <div class="text-center mt-4 pt-4 border-top" style="border-color: var(--ds-border) !important;">
+          <p class="ds-caption ds-text-muted mb-0">
+            Don’t have an account?
+            <a href="/users/register/" class="ms-1 fw-bold">Create Account</a>
+          </p>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>
 {% endblock %}

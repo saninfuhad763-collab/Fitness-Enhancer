@@ -3,103 +3,258 @@
 
 {% block content %}
 
-
-
-<!-- Greeting -->
-<div class="mb-4">
-  <h2 class="fw-bold">Welcome back, {{ request.user.username }} 👋</h2>
-  <p class="text-muted">
-    Stay consistent. Results will follow.
-  </p>
-</div>
-
-<p class="text-muted">
-  Plan:
-  <strong class="text-capitalize">
-    {{ request.user.subscription.plan }}
-  </strong>
-  {% if request.user.subscription.plan == 'free' %}
-    – <a href="/users/upgrade/">Upgrade</a>
-  {% endif %}
-</p>
-
-<!-- Stats Row -->
-<div class="row g-4 mb-4">
-  <div class="col-md-4">
-    <div class="card stat-card shadow-sm">
-      <div class="card-body">
-        <h6 class="text-muted">Weight</h6>
-        <h3 class="fw-bold">{{ profile.weight }} kg</h3>
-      </div>
+<!-- Hero / Welcome Section -->
+<div class="ds-glow-container mb-5">
+  <div class="ds-glow-primary"></div>
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div>
+      <h1 class="ds-h1 ds-text-gradient mb-2">Welcome back, {{ request.user.username }}</h1>
+      <p class="ds-text-muted mb-0 ds-body-large">
+        <i data-lucide="activity" class="me-2" style="width: 18px; height: 18px;"></i>
+        Stay consistent. Results will follow.
+      </p>
     </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card stat-card shadow-sm">
-      <div class="card-body">
-        <h6 class="text-muted">BMI</h6>
-        <h3 class="fw-bold">{{ bmi }}</h3>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card stat-card shadow-sm">
-      <div class="card-body">
-        <h6 class="text-muted">Goal</h6>
-        <h3 class="fw-bold text-capitalize">
-          {{ profile.goal|cut:"_" }}
-        </h3>
+    
+    <!-- Plan Badge & Edit Profile -->
+    <div class="d-flex align-items-center gap-2">
+      <a href="{% url 'edit_profile' %}" class="ds-btn ds-btn-sm ds-btn-outline">
+        <i data-lucide="user-cog" class="me-1" style="width: 14px; height: 14px;"></i> Edit Profile
+      </a>
+      <div class="ds-card ds-glass px-4 py-2 d-flex align-items-center">
+        <div class="me-3">
+          <p class="ds-caption ds-text-muted mb-0 text-uppercase tracking-wider">Current Plan</p>
+          <strong class="ds-h6 text-capitalize ds-text-gradient-primary">
+            {{ request.user.subscription.plan }}
+          </strong>
+        </div>
+        {% if request.user.subscription.plan == 'free' %}
+          <a href="/users/upgrade/" class="ds-btn ds-btn-sm ds-btn-primary ms-2">
+            <i data-lucide="zap" class="me-1" style="width: 14px; height: 14px;"></i> Upgrade
+          </a>
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
 
-<!-- Action Cards -->
-<div class="row g-4">
+<!-- Key Performance Indicators (KPIs) -->
+<div class="row g-4 mb-5">
   <div class="col-md-4">
-    <div class="card action-card shadow-sm">
-      <div class="card-body">
-        <h5 class="fw-bold">🏋️ Workout Plan</h5>
-        <p class="text-muted">View today’s workout</p>
-        <a href="/workout/" class="btn btn-outline-dark btn-sm">Open</a>
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body d-flex align-items-center">
+        <div class="p-3 rounded-circle me-3" style="background: rgba(59, 130, 246, 0.1);">
+          <i data-lucide="scale" style="color: var(--ds-accent-primary);"></i>
+        </div>
+        <div>
+          <h6 class="ds-label mb-1">Current Weight</h6>
+          <h3 class="ds-h2 mb-0">{{ profile.weight }} <span class="ds-text-muted ds-h5">kg</span></h3>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="col-md-4">
-    <div class="card action-card shadow-sm">
-      <div class="card-body">
-        <h5 class="fw-bold">🍽️ Diet Plan</h5>
-        <p class="text-muted">Calories & protein intake</p>
-        <a href="/tools/calories/" class="btn btn-outline-dark btn-sm">Open</a>
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body d-flex align-items-center">
+        <div class="p-3 rounded-circle me-3" style="background: rgba(99, 102, 241, 0.1);">
+          <i data-lucide="activity-square" style="color: var(--ds-accent-secondary);"></i>
+        </div>
+        <div>
+          <h6 class="ds-label mb-1">BMI Index</h6>
+          <h3 class="ds-h2 mb-0">{{ bmi }}</h3>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="col-md-4">
-    <div class="card action-card shadow-sm">
-      <div class="card-body">
-        <h5 class="fw-bold">📈 Progress</h5>
-        <p class="text-muted">Track your growth</p>
-        <a href="/progress/" class="btn btn-outline-dark btn-sm">Open</a>
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body d-flex align-items-center">
+        <div class="p-3 rounded-circle me-3" style="background: rgba(34, 197, 94, 0.1);">
+          <i data-lucide="target" style="color: var(--ds-success);"></i>
+        </div>
+        <div>
+          <h6 class="ds-label mb-1">Primary Goal</h6>
+          <h3 class="ds-h2 mb-0 text-capitalize">{{ profile.goal|cut:"_" }}</h3>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="alert alert-success mt-3">
-  💪 Consistency beats intensity. Keep going!
+<!-- Main Content Grid -->
+<div class="row g-4 mb-5">
+  
+  <!-- Left Column (Chart & Activity) -->
+  <div class="col-lg-8">
+    
+    <!-- Demo Chart Section -->
+    <div class="ds-card ds-glass mb-4">
+      <div class="ds-card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h5 class="ds-h5 mb-0">Activity Overview <span class="ds-badge ds-badge-primary ms-2">Demo</span></h5>
+          <div class="dropdown">
+            <button class="ds-btn ds-btn-sm ds-btn-ghost"><i data-lucide="more-horizontal"></i></button>
+          </div>
+        </div>
+        <div style="height: 300px;">
+          <canvas id="demoActivityChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Timeline (Demo) -->
+    <div class="ds-card ds-glass">
+      <div class="ds-card-body">
+        <h5 class="ds-h5 mb-4">Recent Activity <span class="ds-badge ds-badge-warning ms-2">Demo</span></h5>
+        
+        <div class="ds-list-group">
+          <div class="ds-list-item d-flex align-items-center">
+            <div class="p-2 rounded-circle me-3" style="background: rgba(59, 130, 246, 0.1);">
+              <i data-lucide="dumbbell" style="color: var(--ds-accent-primary); width: 16px; height: 16px;"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h6 class="ds-h6 mb-0">Upper Body Power</h6>
+              <p class="ds-caption ds-text-muted mb-0">Completed 5 exercises</p>
+            </div>
+            <span class="ds-caption ds-text-muted">2 hours ago</span>
+          </div>
+
+          <div class="ds-list-item d-flex align-items-center">
+            <div class="p-2 rounded-circle me-3" style="background: rgba(34, 197, 94, 0.1);">
+              <i data-lucide="utensils" style="color: var(--ds-success); width: 16px; height: 16px;"></i>
+            </div>
+            <div class="flex-grow-1">
+              <h6 class="ds-h6 mb-0">Lunch Logged</h6>
+              <p class="ds-caption ds-text-muted mb-0">850 kcal logged</p>
+            </div>
+            <span class="ds-caption ds-text-muted">5 hours ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column (Quick Actions) -->
+  <div class="col-lg-4">
+    <h5 class="ds-h5 mb-4">Quick Actions</h5>
+    
+    <a href="/workout/" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-3" style="border-left: 4px solid var(--ds-accent-primary);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Workout Plan</h6>
+            <p class="ds-caption ds-text-muted mb-0">View today’s routine</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <a href="/tools/calories/" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-3" style="border-left: 4px solid var(--ds-success);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Diet Plan</h6>
+            <p class="ds-caption ds-text-muted mb-0">Calories & protein</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <a href="/progress/" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-4" style="border-left: 4px solid var(--ds-warning);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Progress</h6>
+            <p class="ds-caption ds-text-muted mb-0">Track your growth</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <div class="ds-alert ds-alert-success d-flex align-items-center">
+      <i data-lucide="check-circle" class="me-2" style="width: 20px; height: 20px;"></i>
+      <span>Consistency beats intensity. Keep going!</span>
+    </div>
+
+    {% if request.user.subscription.plan == "premium" %}
+      <a href="{% url 'weekly_schedule' %}" class="ds-btn ds-btn-primary ds-btn-w100 mt-2">
+        <i data-lucide="calendar" class="me-2" style="width: 16px; height: 16px;"></i>
+        Weekly Schedule
+      </a>
+    {% else %}
+      <button class="ds-btn ds-btn-secondary ds-btn-w100 mt-2" disabled>
+        <i data-lucide="lock" class="me-2" style="width: 16px; height: 16px;"></i>
+        Weekly Schedule (Premium)
+      </button>
+    {% endif %}
+
+  </div>
 </div>
 
-{% if request.user.subscription.plan == "premium" %}
-  <a href="{% url 'weekly_schedule' %}" class="btn btn-outline-dark btn-sm">
-    Weekly Workout
-  </a>
-{% else %}
-  <button class="btn btn-outline-secondary btn-sm" disabled>
-    Weekly Workout 🔒
-  </button>
-{% endif %}
+<!-- Chart.js Setup for Premium Presentation -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('demoActivityChart').getContext('2d');
+    
+    // Create soft gradient fill
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+    gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Activity Score',
+          data: [65, 78, 60, 92, 85, 105, 95],
+          borderColor: '#3B82F6',
+          backgroundColor: gradient,
+          borderWidth: 2,
+          pointBackgroundColor: '#0B1220',
+          pointBorderColor: '#3B82F6',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.4 // Smooth curves
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(24, 34, 53, 0.9)',
+            titleColor: '#CBD5E1',
+            bodyColor: '#F8FAFC',
+            borderColor: '#273449',
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false,
+            cornerRadius: 8
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false, drawBorder: false },
+            ticks: { color: '#94A3B8', font: { family: 'Inter' } }
+          },
+          y: {
+            grid: { color: '#273449', drawBorder: false },
+            ticks: { color: '#94A3B8', font: { family: 'Inter' }, padding: 10 }
+          }
+        }
+      }
+    });
+  });
+</script>
 
 {% endblock %}

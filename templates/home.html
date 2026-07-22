@@ -1,9 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Fitness App Home</h1>
-</body>
-</html>
+{% extends 'base/base.html' %}
+{% block title %}Fitness Enhancer - Premium Fitness Tracking{% endblock %}
+
+{% block content %}
+
+<!-- Landing Page Hero Section -->
+<div class="position-relative overflow-hidden ds-grid-bg ds-glow-container py-5 mt-4 rounded-4" style="border: 1px solid var(--ds-border);">
+  <div class="ds-glow-primary"></div>
+  
+  <div class="container position-relative z-1">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8 py-5">
+        
+        <div class="d-inline-flex align-items-center ds-glass px-3 py-1 rounded-pill mb-4" style="border: 1px solid rgba(255,255,255,0.1);">
+          <span class="ds-badge ds-badge-primary me-2">New</span>
+          <span class="ds-caption ds-text-secondary">Introducing AI-powered workout schedules</span>
+        </div>
+
+        <h1 class="ds-display ds-text-gradient mb-4 fw-bolder" style="line-height: 1.1;">
+          Data-driven fitness.<br>
+          <span class="ds-text-gradient-primary">Engineered for results.</span>
+        </h1>
+        
+        <p class="ds-body-large ds-text-muted mb-5 px-md-5">
+          The professional platform for serious athletes. Track your macros, optimize your routines, and visualize your progress with a premium suite of tools designed to remove the guesswork from your fitness journey.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+          <a href="/users/register/" class="ds-btn ds-btn-primary" style="padding: 12px 24px; font-size: 1rem;">
+            Start Free Trial
+            <i data-lucide="arrow-right" class="ms-2" style="width: 18px; height: 18px;"></i>
+          </a>
+          <a href="/users/login/" class="ds-btn ds-btn-outline ds-glass" style="padding: 12px 24px; font-size: 1rem;">
+            Sign In
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Grid -->
+<div class="mt-5 pt-4">
+  <div class="text-center mb-5">
+    <h2 class="ds-h2 mb-2">Everything you need to scale.</h2>
+    <p class="ds-text-muted">Built by engineers, for athletes.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="ds-card ds-glass h-100 ds-card-hoverable">
+        <div class="ds-card-body p-4">
+          <div class="p-3 rounded-3 d-inline-block mb-3" style="background: rgba(59, 130, 246, 0.1);">
+            <i data-lucide="bar-chart-2" style="color: var(--ds-accent-primary); width: 24px; height: 24px;"></i>
+          </div>
+          <h4 class="ds-h4 mb-2">Advanced Analytics</h4>
+          <p class="ds-text-muted mb-0">Visualize your weight, BMI, and progressive overload with beautiful, interactive charts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ds-card ds-glass h-100 ds-card-hoverable">
+        <div class="ds-card-body p-4">
+          <div class="p-3 rounded-3 d-inline-block mb-3" style="background: rgba(99, 102, 241, 0.1);">
+            <i data-lucide="calendar-days" style="color: var(--ds-accent-secondary); width: 24px; height: 24px;"></i>
+          </div>
+          <h4 class="ds-h4 mb-2">Automated Scheduling</h4>
+          <p class="ds-text-muted mb-0">Dynamic weekly workout plans tailored exactly to your primary fitness objective.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ds-card ds-glass h-100 ds-card-hoverable">
+        <div class="ds-card-body p-4">
+          <div class="p-3 rounded-3 d-inline-block mb-3" style="background: rgba(34, 197, 94, 0.1);">
+            <i data-lucide="utensils" style="color: var(--ds-success); width: 24px; height: 24px;"></i>
+          </div>
+          <h4 class="ds-h4 mb-2">Precision Nutrition</h4>
+          <p class="ds-text-muted mb-0">Calculate accurate BMR, TDEE, and daily caloric targets to stay inside your desired macro ranges.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

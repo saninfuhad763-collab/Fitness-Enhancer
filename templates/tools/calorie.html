@@ -1,44 +1,222 @@
 {% extends 'base/base.html' %}
-{% block title %}Calorie Calculator{% endblock %}
+{% block title %}Diet & Nutrition Dashboard{% endblock %}
 
 {% block content %}
-<h2 class="fw-bold mb-3">Calorie & Protein Calculator</h2>
-<p class="text-muted mb-4">
-  Based on your body data and fitness goal
-</p>
 
-<div class="row g-4">
-  <div class="col-md-3">
-    <div class="card shadow-sm p-3">
-      <h6 class="text-muted">BMR</h6>
-      <h3 class="fw-bold">{{ bmr }} kcal</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card shadow-sm p-3">
-      <h6 class="text-muted">TDEE</h6>
-      <h3 class="fw-bold">{{ tdee }} kcal</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card shadow-sm p-3">
-      <h6 class="text-muted">Daily Calories</h6>
-      <h3 class="fw-bold text-success">{{ calories }} kcal</h3>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="card shadow-sm p-3">
-      <h6 class="text-muted">Protein Target</h6>
-      <h3 class="fw-bold text-primary">{{ protein }} g</h3>
+<!-- Hero Section -->
+<div class="mb-5 ds-glow-container">
+  <div class="ds-glow-primary"></div>
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="d-flex align-items-center">
+      <div class="p-3 rounded-circle me-3" style="background: rgba(34, 197, 94, 0.1);">
+        <i data-lucide="utensils" style="color: var(--ds-success); width: 28px; height: 28px;"></i>
+      </div>
+      <div>
+        <h2 class="ds-h1 ds-text-gradient mb-1">Nutrition & Diet Dashboard</h2>
+        <p class="ds-text-muted ds-body-large mb-0">Personalized daily targets and meal suggestions tailored to your fitness goals.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="alert alert-info mt-4">
-  💡 Tip: Spread protein evenly across meals for better absorption.
+<!-- Daily Nutrition Summary (5 KPI Cards) -->
+<div class="row g-4 mb-5">
+  
+  <!-- Current Goal -->
+  <div class="col-md-4 col-lg-2-4">
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.1);">
+          <i data-lucide="target" style="color: var(--ds-accent-secondary); width: 24px; height: 24px;"></i>
+        </div>
+        <h6 class="ds-label mb-2">Current Goal</h6>
+        <h4 class="ds-h5 mb-0 text-capitalize ds-text-gradient-primary">{{ profile.get_goal_display|default:profile.goal }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- BMI -->
+  <div class="col-md-4 col-lg-2-4">
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(148, 163, 184, 0.1);">
+          <i data-lucide="activity-square" style="color: var(--ds-text-secondary); width: 24px; height: 24px;"></i>
+        </div>
+        <h6 class="ds-label mb-2">BMI Index</h6>
+        <h3 class="ds-h2 mb-0">{{ bmi }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Calorie Target -->
+  <div class="col-md-4 col-lg-2-4">
+    <div class="ds-card ds-glass ds-card-hoverable h-100" style="border-bottom: 4px solid var(--ds-success);">
+      <div class="ds-card-body p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(34, 197, 94, 0.1);">
+          <i data-lucide="flame" style="color: var(--ds-success); width: 24px; height: 24px;"></i>
+        </div>
+        <h6 class="ds-label mb-2">Daily Calorie Target</h6>
+        <h3 class="ds-h2 ds-text-success mb-0">{{ calories }} <span class="ds-text-muted ds-h5">kcal</span></h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Protein Target -->
+  <div class="col-md-6 col-lg-2-4">
+    <div class="ds-card ds-glass ds-card-hoverable h-100" style="border-bottom: 4px solid var(--ds-accent-primary);">
+      <div class="ds-card-body p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(59, 130, 246, 0.1);">
+          <i data-lucide="beef" style="color: var(--ds-accent-primary); width: 24px; height: 24px;"></i>
+        </div>
+        <h6 class="ds-label mb-2">Protein Goal</h6>
+        <h3 class="ds-h2 ds-text-primary mb-0">{{ protein }} <span class="ds-text-muted ds-h5">g</span></h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Water Intake -->
+  <div class="col-md-6 col-lg-2-4">
+    <div class="ds-card ds-glass ds-card-hoverable h-100">
+      <div class="ds-card-body p-4 text-center">
+        <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(6, 182, 212, 0.1);">
+          <i data-lucide="droplets" style="color: #06B6D4; width: 24px; height: 24px;"></i>
+        </div>
+        <h6 class="ds-label mb-2">Water Recommendation</h6>
+        <h3 class="ds-h2 mb-0" style="color: #06B6D4;">{{ water_intake }} <span class="ds-text-muted ds-h5">L</span></h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Main Content Grid -->
+<div class="row g-4 mb-5">
+  
+  <!-- Left Column: Suggested Meals & Nutrition Tips -->
+  <div class="col-lg-8">
+    
+    <!-- Suggested Daily Meals -->
+    <div class="ds-card ds-glass mb-4">
+      <div class="ds-card-body p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom" style="border-color: var(--ds-border) !important;">
+          <h5 class="ds-h5 mb-0">
+            <i data-lucide="utensils-crossed" class="me-2 ds-text-primary d-inline" style="width: 20px; height: 20px;"></i>
+            Suggested Daily Meals
+          </h5>
+          <span class="ds-badge ds-badge-primary">Goal Aligned</span>
+        </div>
+
+        <div class="row g-3">
+          {% for meal in meals %}
+            <div class="col-md-6">
+              <div class="p-3 rounded-3 ds-card-hoverable h-100 d-flex flex-column justify-content-between" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);">
+                <div>
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="ds-caption text-uppercase tracking-wider ds-text-muted">
+                      <i data-lucide="{{ meal.icon }}" class="me-1 d-inline" style="width: 14px; height: 14px;"></i>
+                      {{ meal.name }}
+                    </span>
+                    <span class="badge bg-secondary opacity-75">{{ meal.calories }} kcal</span>
+                  </div>
+                  <h6 class="ds-h6 mb-1">{{ meal.title }}</h6>
+                  <p class="ds-caption ds-text-muted mb-3">{{ meal.desc }}</p>
+                </div>
+                <div class="pt-2 border-top d-flex justify-content-between align-items-center" style="border-color: rgba(255, 255, 255, 0.05) !important;">
+                  <span class="ds-caption ds-text-muted">Protein Content</span>
+                  <strong class="ds-caption ds-text-primary">{{ meal.protein }}g protein</strong>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Practical Nutrition Tips -->
+    <div class="ds-card ds-glass">
+      <div class="ds-card-body p-4">
+        <h5 class="ds-h5 mb-4 d-flex align-items-center">
+          <i data-lucide="lightbulb" class="me-2 ds-text-warning" style="width: 20px; height: 20px;"></i>
+          Practical Health & Nutrition Tips
+        </h5>
+        
+        <div class="ds-list-group">
+          {% for tip in tips %}
+            <div class="ds-list-item d-flex align-items-start p-3 mb-2 rounded-3" style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.03);">
+              <div class="p-2 rounded-circle me-3 shrink-0" style="background: rgba(234, 179, 8, 0.1);">
+                <i data-lucide="check" style="color: var(--ds-warning); width: 16px; height: 16px;"></i>
+              </div>
+              <div>
+                <p class="ds-body mb-0">{{ tip }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column: Quick Actions & Overview -->
+  <div class="col-lg-4">
+    <h5 class="ds-h5 mb-4">Quick Actions</h5>
+    
+    <a href="{% url 'dashboard' %}" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-3" style="border-left: 4px solid var(--ds-accent-primary);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Dashboard</h6>
+            <p class="ds-caption ds-text-muted mb-0">View overview & statistics</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <a href="{% url 'workout_plan' %}" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-3" style="border-left: 4px solid var(--ds-success);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Workout Plan</h6>
+            <p class="ds-caption ds-text-muted mb-0">View training routines</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <a href="{% url 'progress' %}" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-3" style="border-left: 4px solid var(--ds-warning);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Progress</h6>
+            <p class="ds-caption ds-text-muted mb-0">Track weight & measurements</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <a href="{% url 'edit_profile' %}" class="text-decoration-none">
+      <div class="ds-card ds-card-hoverable mb-4" style="border-left: 4px solid var(--ds-accent-secondary);">
+        <div class="ds-card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h6 class="ds-h6 mb-1">Edit Profile</h6>
+            <p class="ds-caption ds-text-muted mb-0">Update metrics & goals</p>
+          </div>
+          <i data-lucide="chevron-right" class="ds-text-muted"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Encouragement Box -->
+    <div class="ds-alert ds-alert-success d-flex align-items-center">
+      <i data-lucide="heart-pulse" class="me-3 shrink-0" style="width: 24px; height: 24px;"></i>
+      <span>Nourish your body according to your goals. Small daily habits create long-term transformation!</span>
+    </div>
+
+  </div>
 </div>
 
 {% endblock %}

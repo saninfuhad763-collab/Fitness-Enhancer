@@ -1,36 +1,79 @@
 {% extends 'base/base.html' %}
-{% block title %}Upgrade{% endblock %}
+{% block title %}Upgrade to Premium{% endblock %}
 
 {% block content %}
-<h2 class="fw-bold mb-4">Upgrade to Premium</h2>
 
-<div class="row g-4">
-  <div class="col-md-6">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h4 class="fw-bold">Free Plan</h4>
-        <ul>
-          <li>Basic workouts</li>
-          <li>BMI calculation</li>
-          <li>Dashboard access</li>
+<!-- Hero Section -->
+<div class="mb-5 ds-glow-container text-center py-4">
+  <div class="ds-glow-primary" style="opacity: 0.8;"></div>
+  <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.1);">
+    <i data-lucide="zap" style="color: var(--ds-accent-secondary); width: 32px; height: 32px;"></i>
+  </div>
+  <h2 class="ds-display ds-text-gradient mb-2">Unlock Your Potential</h2>
+  <p class="ds-text-muted ds-body-large mb-0 px-md-5 mx-md-5">Upgrade to Premium for advanced tools, progressive schedules, and deep analytics.</p>
+</div>
+
+<div class="row g-4 justify-content-center">
+  
+  <!-- Free Plan -->
+  <div class="col-md-5">
+    <div class="ds-card ds-glass h-100">
+      <div class="ds-card-body p-4 d-flex flex-column h-100">
+        <h4 class="ds-h3 mb-2">Basic</h4>
+        <p class="ds-text-muted mb-4">Essential tools to get started</p>
+        
+        <div class="ds-h1 mb-4">$0 <span class="ds-text-muted ds-h5 font-weight-normal">/mo</span></div>
+        
+        <ul class="ds-list-group mb-4 flex-grow-1" style="border: none;">
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> Basic workouts
+          </li>
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> BMI calculation
+          </li>
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-muted" style="width: 16px; height: 16px;"></i> Dashboard access
+          </li>
         </ul>
+        
+        <button class="ds-btn ds-btn-outline ds-btn-w100 py-2" disabled>Current Plan</button>
       </div>
     </div>
   </div>
 
-  <div class="col-md-6">
-    <div class="card shadow-sm border-dark">
-      <div class="card-body">
-        <h4 class="fw-bold">Premium Plan</h4>
-        <ul>
-          <li>Weekly workout schedule</li>
-          <li>Calorie & protein calculator</li>
-          <li>Progress tracking & charts</li>
-          <li>Advanced workouts</li>
+  <!-- Premium Plan -->
+  <div class="col-md-5">
+    <div class="ds-card ds-glass h-100 position-relative overflow-hidden" style="border: 1px solid var(--ds-accent-primary);">
+      <!-- Subtle top border accent -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ds-accent-primary);"></div>
+      
+      <div class="ds-card-body p-4 d-flex flex-column h-100">
+        
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <h4 class="ds-h3 mb-0 ds-text-primary">Premium</h4>
+          <span class="ds-badge ds-badge-primary">Recommended</span>
+        </div>
+        <p class="ds-text-muted mb-4">Complete access to the data ecosystem</p>
+        
+        <div class="ds-h1 mb-4">$9.99 <span class="ds-text-muted ds-h5 font-weight-normal">/mo</span></div>
+        
+        <ul class="ds-list-group mb-4 flex-grow-1" style="border: none;">
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Weekly automated schedule
+          </li>
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Precision Calorie & Macro calculator
+          </li>
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Advanced Progress tracking charts
+          </li>
+          <li class="ds-list-item d-flex align-items-center" style="border-bottom: none; padding-bottom: var(--ds-space-sm);">
+            <i data-lucide="check" class="me-2 ds-text-primary" style="width: 16px; height: 16px;"></i> Advanced, targeted workouts
+          </li>
         </ul>
-
-        <button class="btn btn-dark w-100 mt-3">
-          Upgrade (Coming Soon)
+        
+        <button class="ds-btn ds-btn-primary ds-btn-w100 py-2">
+          Upgrade <span class="ds-caption ms-1 opacity-75">(Coming Soon)</span>
         </button>
       </div>
     </div>

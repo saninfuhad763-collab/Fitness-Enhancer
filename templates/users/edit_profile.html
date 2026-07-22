@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+  <div class="col-md-6 col-lg-5">
+    
+    <div class="ds-glow-container text-center mb-4">
+      <div class="ds-glow-primary"></div>
+      <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(59, 130, 246, 0.1);">
+        <i data-lucide="user-cog" style="color: var(--ds-accent-primary); width: 28px; height: 28px;"></i>
+      </div>
+      <h2 class="ds-h2 ds-text-gradient mb-2">Edit Profile</h2>
+      <p class="ds-text-muted ds-body">Update your physical metrics and fitness goals</p>
+    </div>
+
+    <div class="ds-card ds-glass p-md-4">
+      <div class="ds-card-body">
+        
+        <form method="post" class="ds-form-wrapper">
+          {% csrf_token %}
+
+          <div class="mb-4">
+            <h6 class="ds-label text-uppercase tracking-wider mb-3 pb-2 border-bottom" style="border-color: var(--ds-border) !important;">
+              Physical Metrics & Goals
+            </h6>
+            
+            <div class="mb-3">
+              {{ form.age.label_tag }}
+              {{ form.age }}
+              {% if form.age.errors %}
+                <div class="text-danger small mt-1">{{ form.age.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.height.label_tag }}
+              {{ form.height }}
+              {% if form.height.errors %}
+                <div class="text-danger small mt-1">{{ form.height.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.weight.label_tag }}
+              {{ form.weight }}
+              {% if form.weight.errors %}
+                <div class="text-danger small mt-1">{{ form.weight.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.goal.label_tag }}
+              {{ form.goal }}
+              {% if form.goal.errors %}
+                <div class="text-danger small mt-1">{{ form.goal.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.experience.label_tag }}
+              {{ form.experience }}
+              {% if form.experience.errors %}
+                <div class="text-danger small mt-1">{{ form.experience.errors }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="d-flex gap-3">
+            <a href="{% url 'dashboard' %}" class="ds-btn ds-btn-outline w-50 py-2">
+              Cancel
+            </a>
+            <button type="submit" class="ds-btn ds-btn-primary w-50 py-2">
+              Save Changes
+              <i data-lucide="check" class="ms-1" style="width: 16px; height: 16px;"></i>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

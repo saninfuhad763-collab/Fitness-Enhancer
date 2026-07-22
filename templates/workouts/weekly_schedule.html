@@ -2,41 +2,59 @@
 {% block title %}Weekly Workout Schedule{% endblock %}
 
 {% block content %}
-<h2 class="fw-bold mb-3">Weekly Workout Schedule</h2>
-<p class="text-muted mb-4">
-  Follow this plan for consistent results
-</p>
+
+<!-- Hero Section -->
+<div class="mb-5 ds-glow-container">
+  <div class="ds-glow-primary"></div>
+  <div class="d-flex align-items-center">
+    <div class="p-3 rounded-circle me-3" style="background: rgba(59, 130, 246, 0.1);">
+      <i data-lucide="calendar-days" style="color: var(--ds-accent-primary); width: 28px; height: 28px;"></i>
+    </div>
+    <div>
+      <h2 class="ds-h1 ds-text-gradient mb-1">Weekly Schedule</h2>
+      <p class="ds-text-muted ds-body-large mb-0">Your automated, progressive training routine.</p>
+    </div>
+  </div>
+</div>
 
 <div class="row g-4">
   {% for item in schedule %}
-    <div class="col-md-3">
-      <div class="card shadow-sm h-100">
-        <div class="card-body">
-          <h5 class="fw-bold">{{ item.get_day_display }}</h5>
-          <p class="text-muted">{{ item.workout_plan.title }}</p>
-          <a href="/workout/" class="btn btn-sm btn-outline-dark">
-            View Workout
+    <div class="col-md-4 col-lg-3">
+      <div class="ds-card ds-glass ds-card-hoverable h-100 position-relative overflow-hidden" style="border-top: 4px solid var(--ds-accent-primary);">
+        <div class="ds-card-body p-4 d-flex flex-column h-100">
+          <div class="mb-auto">
+            <h5 class="ds-h5 mb-1">{{ item.get_day_display }}</h5>
+            <p class="ds-text-muted ds-caption mb-3 text-uppercase tracking-wider">Training Day</p>
+            <div class="d-flex align-items-center mb-4">
+              <i data-lucide="dumbbell" class="me-2 ds-text-primary" style="width: 18px; height: 18px;"></i>
+              <strong class="ds-body">{{ item.workout_plan.title }}</strong>
+            </div>
+          </div>
+          <a href="/workout/" class="ds-btn ds-btn-outline ds-btn-w100 mt-3">
+            View Details <i data-lucide="arrow-right" class="ms-2" style="width: 14px; height: 14px;"></i>
           </a>
         </div>
       </div>
     </div>
   {% endfor %}
 
-  <!-- Rest Days -->
-  <div class="col-md-3">
-    <div class="card border-dashed h-100">
-      <div class="card-body text-center text-muted">
-        <h5>Thursday</h5>
-        <p>Rest & Recovery</p>
+  <!-- Rest Days (Static Placeholders for Demo purposes since they are hardcoded in original) -->
+  <div class="col-md-4 col-lg-3">
+    <div class="ds-card ds-glass h-100" style="opacity: var(--ds-opacity-disabled); border-top: 4px solid var(--ds-text-muted);">
+      <div class="ds-card-body p-4 d-flex flex-column h-100 justify-content-center text-center">
+        <i data-lucide="battery-charging" class="mx-auto mb-3" style="color: var(--ds-text-muted); width: 32px; height: 32px;"></i>
+        <h5 class="ds-h5 mb-1 ds-text-muted">Thursday</h5>
+        <p class="ds-caption ds-text-muted text-uppercase tracking-wider mb-0">Rest & Recovery</p>
       </div>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="card border-dashed h-100">
-      <div class="card-body text-center text-muted">
-        <h5>Sunday</h5>
-        <p>Rest & Mobility</p>
+  <div class="col-md-4 col-lg-3">
+    <div class="ds-card ds-glass h-100" style="opacity: var(--ds-opacity-disabled); border-top: 4px solid var(--ds-text-muted);">
+      <div class="ds-card-body p-4 d-flex flex-column h-100 justify-content-center text-center">
+        <i data-lucide="activity-square" class="mx-auto mb-3" style="color: var(--ds-text-muted); width: 32px; height: 32px;"></i>
+        <h5 class="ds-h5 mb-1 ds-text-muted">Sunday</h5>
+        <p class="ds-caption ds-text-muted text-uppercase tracking-wider mb-0">Rest & Mobility</p>
       </div>
     </div>
   </div>

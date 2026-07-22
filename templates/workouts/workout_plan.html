@@ -2,27 +2,100 @@
 {% block title %}Workout Plan{% endblock %}
 
 {% block content %}
-<h2 class="fw-bold mb-3">Your Workout Plan</h2>
 
-{% if plan %}
-<div class="card shadow-sm">
-  <div class="card-body">
-    <h4 class="fw-bold">{{ plan.title }}</h4>
-
-    <ul class="list-group list-group-flush mt-3">
-      {% for exercise in plan.exercises.all %}
-        <li class="list-group-item">
-          <strong>{{ exercise.name }}</strong>
-          <p class="text-muted mb-0">
-            {{ exercise.description }}
-          </p>
-        </li>
-      {% endfor %}
-    </ul>
+<!-- Hero Section -->
+<div class="mb-5 ds-glow-container">
+  <div class="ds-glow-primary"></div>
+  <div class="d-flex align-items-center">
+    <div class="p-3 rounded-circle me-3" style="background: rgba(59, 130, 246, 0.1);">
+      <i data-lucide="dumbbell" style="color: var(--ds-accent-primary); width: 28px; height: 28px;"></i>
+    </div>
+    <div>
+      <h2 class="ds-h1 ds-text-gradient mb-1">Today's Workout</h2>
+      <p class="ds-text-muted ds-body-large mb-0">{% if plan %}{{ plan.title }}{% else %}Rest Day{% endif %}</p>
+    </div>
   </div>
 </div>
+
+{% if plan %}
+<div class="row">
+  <div class="col-lg-8">
+    <div class="ds-card ds-glass p-md-4">
+      <div class="ds-card-body">
+        
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom" style="border-color: var(--ds-border) !important;">
+          <h5 class="ds-h5 mb-0">Exercises</h5>
+          <span class="ds-badge ds-badge-primary">
+            <i data-lucide="list" class="me-1 d-inline" style="width: 12px; height: 12px;"></i>
+            {{ plan.exercises.all.count }} Movements
+          </span>
+        </div>
+
+        <div class="ds-list-group">
+          {% for exercise in plan.exercises.all %}
+            <div class="ds-list-item d-flex p-4 mb-3 rounded-3 ds-card-hoverable" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+              
+              <!-- Exercise Index/Icon -->
+              <div class="me-4 d-none d-sm-block">
+                <div class="ds-flex-center rounded-circle" style="width: 48px; height: 48px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2);">
+                  <span class="ds-h5 ds-text-primary mb-0">{{ forloop.counter }}</span>
+                </div>
+              </div>
+
+              <!-- Exercise Details -->
+              <div class="flex-grow-1">
+                <h5 class="ds-h5 mb-2">{{ exercise.name }}</h5>
+                <p class="ds-text-muted ds-body mb-0">
+                  {{ exercise.description }}
+                </p>
+              </div>
+
+              <!-- Action/Check -->
+              <div class="ms-3 align-self-center">
+                <button class="ds-btn ds-btn-outline ds-btn-icon" style="border-radius: 50%;">
+                  <i data-lucide="check" style="width: 20px; height: 20px;"></i>
+                </button>
+              </div>
+
+            </div>
+          {% empty %}
+            <div class="text-center py-5">
+              <i data-lucide="inbox" class="ds-text-muted mb-3" style="width: 48px; height: 48px;"></i>
+              <p class="ds-body ds-text-muted">No exercises configured for this plan.</p>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar (Optional Summary) -->
+  <div class="col-lg-4 mt-4 mt-lg-0">
+    <div class="ds-card ds-glass position-sticky" style="top: 24px;">
+      <div class="ds-card-body p-4 text-center">
+        <i data-lucide="timer" class="mb-3 ds-text-secondary" style="width: 40px; height: 40px;"></i>
+        <h5 class="ds-h5 mb-2">Ready to start?</h5>
+        <p class="ds-text-muted ds-body mb-4">Focus on your form and keep rest periods consistent.</p>
+        <button class="ds-btn ds-btn-primary ds-btn-w100 py-2">
+          Start Workout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% else %}
-<p>No workout plan available.</p>
+<div class="ds-card ds-glass text-center py-5 mt-4">
+  <div class="ds-card-body">
+    <i data-lucide="battery-charging" class="mb-3" style="color: var(--ds-text-muted); width: 64px; height: 64px;"></i>
+    <h3 class="ds-h3 ds-text-muted mb-2">Rest & Recovery</h3>
+    <p class="ds-body ds-text-muted mb-4">You have no active workout plan scheduled for today.</p>
+    <a href="{% url 'dashboard' %}" class="ds-btn ds-btn-outline">
+      <i data-lucide="arrow-left" class="me-2" style="width: 16px; height: 16px;"></i> Return to Dashboard
+    </a>
+  </div>
+</div>
 {% endif %}
 
 {% endblock %}

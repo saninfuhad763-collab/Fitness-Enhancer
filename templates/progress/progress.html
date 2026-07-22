@@ -2,76 +2,152 @@
 {% block title %}Progress{% endblock %}
 
 {% block content %}
-<h2 class="fw-bold mb-3">Progress Tracker</h2>
-<p class="text-muted">Track your weight changes over time</p>
 
-<!-- Add Progress Form -->
-<div class="card shadow-sm mb-4">
-  <div class="card-body">
-    <h5 class="fw-bold">Add Today’s Weight</h5>
-
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn btn-dark">Save</button>
-    </form>
+<!-- Hero Section -->
+<div class="mb-5 ds-glow-container">
+  <div class="ds-glow-primary"></div>
+  <div class="d-flex align-items-center">
+    <div class="p-3 rounded-circle me-3" style="background: rgba(99, 102, 241, 0.1);">
+      <i data-lucide="trending-up" style="color: var(--ds-accent-secondary); width: 28px; height: 28px;"></i>
+    </div>
+    <div>
+      <h2 class="ds-h1 ds-text-gradient mb-1">Progress Tracker</h2>
+      <p class="ds-text-muted ds-body-large mb-0">Monitor your weight changes over time.</p>
+    </div>
   </div>
 </div>
 
-<!-- Chart -->
-<div class="card shadow-sm mb-4">
-  <div class="card-body">
-    <h5 class="fw-bold">Weight Progress Chart</h5>
-    <canvas id="weightChart"></canvas>
+<div class="row g-4">
+  
+  <!-- Left Column: Chart & History -->
+  <div class="col-lg-8">
+    
+    <!-- Chart -->
+    <div class="ds-card ds-glass mb-4">
+      <div class="ds-card-body p-md-4">
+        <h5 class="ds-h5 mb-4 d-flex align-items-center">
+          <i data-lucide="bar-chart-2" class="me-2 ds-text-primary"></i> Weight Progress Chart
+        </h5>
+        <div style="height: 320px;">
+          <canvas id="weightChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="ds-card ds-glass">
+      <div class="ds-card-body p-md-4">
+        <h5 class="ds-h5 mb-4 d-flex align-items-center">
+          <i data-lucide="history" class="me-2 ds-text-primary"></i> History
+        </h5>
+
+        <div class="ds-list-group">
+          {% for p in progress_data %}
+            <div class="ds-list-item d-flex align-items-center justify-content-between p-3 mb-2 rounded-3" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
+              <div>
+                <strong class="ds-h5 mb-1 d-block">{{ p.weight }} <span class="ds-text-muted ds-caption">kg</span></strong>
+                <span class="ds-caption ds-text-muted">
+                  <i data-lucide="calendar" class="me-1 d-inline" style="width: 12px; height: 12px;"></i> {{ p.date }}
+                </span>
+              </div>
+              {% if p.note %}
+                <div class="ds-badge ds-badge-primary">
+                  <i data-lucide="message-square" class="me-1 d-inline" style="width: 12px; height: 12px;"></i> {{ p.note }}
+                </div>
+              {% endif %}
+            </div>
+          {% empty %}
+            <div class="text-center py-4">
+              <i data-lucide="inbox" class="ds-text-muted mb-2" style="width: 32px; height: 32px;"></i>
+              <p class="ds-text-muted mb-0">No progress recorded yet.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Right Column: Add Progress Form -->
+  <div class="col-lg-4">
+    <div class="ds-card ds-glass position-sticky" style="top: 24px;">
+      <div class="ds-card-body p-md-4">
+        <h5 class="ds-h5 mb-4 d-flex align-items-center">
+          <i data-lucide="plus-circle" class="me-2 ds-text-primary"></i> Log Today
+        </h5>
+        
+        <form method="post" class="ds-form-wrapper">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="ds-btn ds-btn-primary ds-btn-w100 mt-3 py-2">
+            Save Progress
+            <i data-lucide="save" class="ms-2" style="width: 16px; height: 16px;"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- History -->
-<div class="card shadow-sm">
-  <div class="card-body">
-    <h5 class="fw-bold">History</h5>
-
-    <ul class="list-group list-group-flush">
-      {% for p in progress_data %}
-        <li class="list-group-item">
-          {{ p.date }} – <strong>{{ p.weight }} kg</strong>
-          {% if p.note %}
-            <span class="text-muted">({{ p.note }})</span>
-          {% endif %}
-        </li>
-      {% empty %}
-        <li class="list-group-item text-muted">
-          No progress recorded yet.
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-
-<!-- Chart.js -->
+<!-- Chart.js Setup for Premium Presentation -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const ctx = document.getElementById('weightChart').getContext('2d');
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('weightChart').getContext('2d');
+    
+    // Create soft gradient fill matching Dashboard
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+    gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
 
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: {{ dates|safe }},
-        datasets: [{
-            label: 'Weight (kg)',
-            data: {{ weights|safe }},
-            borderWidth: 2,
-            tension: 0.4
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: false
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ dates|safe }},
+            datasets: [{
+                label: 'Weight (kg)',
+                data: {{ weights|safe }},
+                borderColor: '#3B82F6',
+                backgroundColor: gradient,
+                borderWidth: 2,
+                pointBackgroundColor: '#0B1220',
+                pointBorderColor: '#3B82F6',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(24, 34, 53, 0.9)',
+                    titleColor: '#CBD5E1',
+                    bodyColor: '#F8FAFC',
+                    borderColor: '#273449',
+                    borderWidth: 1,
+                    padding: 10,
+                    displayColors: false,
+                    cornerRadius: 8
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false, drawBorder: false },
+                    ticks: { color: '#94A3B8', font: { family: 'Inter' } }
+                },
+                y: {
+                    beginAtZero: false,
+                    grid: { color: '#273449', drawBorder: false },
+                    ticks: { color: '#94A3B8', font: { family: 'Inter' }, padding: 10 }
+                }
             }
         }
-    }
+    });
 });
 </script>
 
