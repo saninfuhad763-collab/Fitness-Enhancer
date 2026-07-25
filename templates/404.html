@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}404 - Page Not Found | Fitness Enhancer{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<main class="row justify-content-center py-5 my-4">
+  <div class="col-lg-8 col-md-10 text-center">
+    
+    <div class="ds-card ds-glass p-4 p-sm-5 ds-glow-container position-relative overflow-hidden" style="border: 1px solid var(--ds-border);">
+      <div class="ds-glow-primary" style="opacity: 0.8;"></div>
+
+      <!-- Large Icon -->
+      <div class="d-inline-flex p-3 rounded-circle mb-4" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);">
+        <i class="bi bi-compass text-primary display-4" aria-hidden="true"></i>
+      </div>
+
+      <!-- Large Error Code -->
+      <div class="ds-display text-uppercase tracking-wider ds-text-gradient-primary fw-bolder mb-2" style="font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1;">
+        404
+      </div>
+
+      <!-- Heading -->
+      <h1 class="ds-h1 ds-text-gradient mb-3 fw-bold">
+        Oops! Page Not Found
+      </h1>
+
+      <!-- Description -->
+      <p class="ds-body-large ds-text-muted mb-4 mx-auto" style="max-width: 580px;">
+        The page you're looking for doesn't exist, may have been moved, or the URL is incorrect.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-4">
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="ds-btn ds-btn-primary py-2 px-4">
+            <i class="bi bi-speedometer2 me-2" aria-hidden="true"></i>Return to Dashboard
+          </a>
+          <a href="{% url 'home' %}" class="ds-btn ds-btn-outline py-2 px-4">
+            <i class="bi bi-house me-2" aria-hidden="true"></i>Go Back Home
+          </a>
+        {% else %}
+          <a href="{% url 'home' %}" class="ds-btn ds-btn-primary py-2 px-4">
+            <i class="bi bi-house-door me-2" aria-hidden="true"></i>Return Home
+          </a>
+          <a href="{% url 'login' %}" class="ds-btn ds-btn-outline py-2 px-4">
+            <i class="bi bi-box-arrow-in-right me-2" aria-hidden="true"></i>Sign In
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Supporting Text -->
+      <p class="ds-caption ds-text-muted mb-0">
+        <i class="bi bi-activity me-1 text-primary" aria-hidden="true"></i>
+        Let's get you back on track with your fitness journey.
+      </p>
+    </div>
+
+  </div>
+</main>
+{% endblock %}
