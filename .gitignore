@@ -1,16 +1,60 @@
+# =========================
 # Python
+# =========================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# Virtual environment
+# =========================
+# Virtual Environment
+# =========================
 venv/
 
+# =========================
 # Django
+# =========================
 db.sqlite3
 *.log
-
-# Environment variables
-.env
-
-# Static collected files
 staticfiles/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+
+# =========================
+# Node / Playwright (Temporary Debugging)
+# =========================
+node_modules/
+package-lock.json
+package.json
+
+# =========================
+# Debug & Investigation Files
+# =========================
+screenshots/
+audit.py
+css_analysis.py
+dash_render.html
+diet_render.html
+dom_compare.py
+find_exact_cause.py
+forensic_search.py
+get_session.py
+inspect_lines.py
+screenshot_after.js
+screenshot_compare.js
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Operating System
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
