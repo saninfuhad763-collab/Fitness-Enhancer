@@ -1,7 +1,10 @@
 {% extends 'base/base.html' %}
-{% block title %}Diet & Nutrition Dashboard{% endblock %}
+{% load static %}
+{% block title %}{% if is_premium or request.user.subscription.plan == 'premium' %}Diet & Nutrition Dashboard{% else %}Unlock Premium Nutrition Tools{% endif %}{% endblock %}
 
 {% block content %}
+
+{% if is_premium or request.user.subscription.plan == 'premium' %}
 
 <!-- Hero Section -->
 <div class="mb-5 ds-glow-container">
@@ -218,5 +221,116 @@
 
   </div>
 </div>
+
+{% else %}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<main class="py-4">
+  <!-- Hero Section -->
+  <div class="mb-5 ds-glow-container text-center py-5">
+    <div class="ds-glow-primary" style="opacity: 0.8;"></div>
+    
+    <!-- Icon Container -->
+    <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.3);">
+      <i class="bi bi-gem-fill text-primary display-4" aria-hidden="true"></i>
+    </div>
+
+    <h1 class="ds-display ds-text-gradient mb-3 fw-bold">
+      Unlock Premium Nutrition Tools
+    </h1>
+    
+    <p class="ds-body-large ds-text-muted mb-4 mx-auto" style="max-width: 700px;">
+      Upgrade to Premium and gain access to personalized nutrition insights, calorie recommendations, and advanced fitness tools designed to help you reach your goals faster.
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mb-2">
+      <a href="{% url 'upgrade' %}" class="ds-btn ds-btn-primary py-3 px-5 shadow-lg">
+        <i class="bi bi-zap-fill me-2" aria-hidden="true"></i>Upgrade to Premium
+      </a>
+      <a href="{% url 'dashboard' %}" class="ds-btn ds-btn-outline py-3 px-4">
+        <i class="bi bi-speedometer2 me-2" aria-hidden="true"></i>Return to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- Premium Benefits Grid (4 Feature Cards) -->
+  <div class="mb-5">
+    <div class="text-center mb-4">
+      <h2 class="ds-h2 ds-text-gradient mb-2">Exclusive Premium Benefits</h2>
+      <p class="ds-text-muted ds-body">Everything you need to optimize your daily energy and macro intake.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+          <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(59, 130, 246, 0.1);">
+            <i class="bi bi-calculator text-primary fs-2" aria-hidden="true"></i>
+          </div>
+          <h3 class="ds-h5 mb-2 fw-bold">Personalized Calorie Calculator</h3>
+          <p class="ds-caption ds-text-muted mb-0">Daily calorie recommendations based on your profile and fitness goal.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+          <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(99, 102, 241, 0.1);">
+            <i class="bi bi-activity text-secondary fs-2" aria-hidden="true"></i>
+          </div>
+          <h3 class="ds-h5 mb-2 fw-bold">BMI & BMR Analysis</h3>
+          <p class="ds-caption ds-text-muted mb-0">Automatically estimate your energy needs.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+          <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(34, 197, 94, 0.1);">
+            <i class="bi bi-pie-chart-fill text-success fs-2" aria-hidden="true"></i>
+          </div>
+          <h3 class="ds-h5 mb-2 fw-bold">Nutrition Guidance</h3>
+          <p class="ds-caption ds-text-muted mb-0">Receive smarter dietary recommendations.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="ds-card ds-glass ds-card-hoverable h-100 p-4 text-center">
+          <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(245, 158, 11, 0.1);">
+            <i class="bi bi-stars text-warning fs-2" aria-hidden="true"></i>
+          </div>
+          <h3 class="ds-h5 mb-2 fw-bold">Future Premium Features</h3>
+          <p class="ds-caption ds-text-muted mb-0">More advanced health tools coming soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Highlight Section (Why Upgrade?) -->
+  <div class="ds-card ds-glass p-4 p-md-5 mb-5 position-relative overflow-hidden" style="border: 1px solid var(--ds-accent-primary) !important;">
+    <div class="row align-items-center">
+      <div class="col-lg-8 mb-3 mb-lg-0">
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-award-fill text-primary fs-3 me-3" aria-hidden="true"></i>
+          <h2 class="ds-h3 ds-text-gradient mb-0">Why Upgrade?</h2>
+        </div>
+        <p class="ds-body ds-text-muted mb-0">
+          Premium members receive advanced nutrition planning, personalized calorie calculations, and future exclusive fitness tools.
+        </p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="{% url 'upgrade' %}" class="ds-btn ds-btn-primary py-2 px-4">
+          Explore Membership <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endif %}
 
 {% endblock %}

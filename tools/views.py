@@ -8,9 +8,7 @@ from users.utils import is_premium
 def calorie_calculator(request):
 
     if not is_premium(request.user):
-        return HttpResponseForbidden(
-            "Upgrade to Premium to use the calorie calculator"
-        )
+        return render(request, 'tools/calorie.html', {'is_premium': False})
 
     profile, created = UserProfile.objects.get_or_create(
         user=request.user,
